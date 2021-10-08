@@ -1,0 +1,13 @@
+.App{
+    background-color: #3f3f3f;
+    min-height: 100vh;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+@media screen and (max-width: 450px){
+    .App{
+        padding-top:1rem;
+        padding-bottom: 1rem;
+    }
+}
