@@ -1,4 +1,4 @@
-import React,{ useState} from 'react';
+import React,{ useState, useEffect} from 'react';
 import './App.css';
 import '../node_modules/jquery/dist/jquery';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -29,13 +29,30 @@ const Dummy_expenses = [
 ];
 const App = () => {
 
-  const [expenses,setExpenses]= useState(Dummy_expenses);
+  //Getting data from local storage
+  const getExpensesFromLocalStorage=()=>{
+    let list= localStorage.getItem('expenses');
+    if(list)
+    {
+       return JSON.parse(list);
+    }
+    else
+    {
+      return Dummy_expenses;
+    }
+  }
+  const [expenses,setExpenses]= useState(getExpensesFromLocalStorage());
   const addExpense =(newExpense)=>{
       console.log(newExpense);
       setExpenses(prevExpenses=>{
         return [newExpense,...prevExpenses];
       })
   }
+ 
+  // using local storage
+  useEffect(()=>{
+    localStorage.setItem('expenses',JSON.stringify(expenses));
+  },[expenses])
   return (
     <div className="App">
       <NewExpense onAddingExpense={addExpense}/>
